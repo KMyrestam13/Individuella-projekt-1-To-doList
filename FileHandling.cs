@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Individuella_projekt_1_To_doList
 {
+    //this was made with assistance of AI, I checked several links to learn more about how this works, as I felt that this was the best and easiest method for saving
+    //to a file. This was done before I noticed that you posted an example for how to do this.
     public class FileHandling
     {
         // constant for data file name

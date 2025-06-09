@@ -88,28 +88,14 @@ namespace Individuella_projekt_1_To_doList
                     break;
                 case 2:
                     //sort projects by due date
-                    projectsToDisplay.Sort((p1, p2) =>
-                    {
-                        if (p1.ProjectDueDate < p2.ProjectDueDate) return -1;
-                        if (p1.ProjectDueDate > p2.ProjectDueDate) return 1;
-                        return 0;
-                    });
+                    projectsToDisplay = projectsToDisplay.OrderBy(p => p.ProjectDueDate).ToList();
                     Console.WriteLine("--- Projects Sorted by Due Date ---");
                     break;
                 default:
                     // Default sort: Project Name then Due Date using direct comparison
                     Console.WriteLine("Invalid choice. Displaying projects sorted by Name then Due Date by default.");
-                    projectsToDisplay.Sort((p1, p2) =>
-                    {
-                        int nameComparison = string.Compare(p1.ProjectName.ToLowerInvariant(), p2.ProjectName.ToLowerInvariant());
-                        if (nameComparison != 0)
-                        {
-                            return nameComparison;
-                        }
-                        if (p1.ProjectDueDate < p2.ProjectDueDate) return -1;
-                        if (p1.ProjectDueDate > p2.ProjectDueDate) return 1;
-                        return 0;
-                    });
+                    projectsToDisplay = projectsToDisplay.OrderBy(p => p.ProjectName).ThenBy(a => a.ProjectDueDate).ToList();
+                    
                     break;
             }
 
@@ -216,7 +202,7 @@ namespace Individuella_projekt_1_To_doList
                         string taskName = HelperMethods.GetStringInput("Enter task name: ");
                         DateTime taskDueDate = HelperMethods.GetDateInput("Enter task due date (YYYY-MM-DD): ");
                         string taskStatus = HelperMethods.GetStringInput("Enter task status (e.g., To Do, In Progress, Done): ");
-                        Task newTask = new Task(newTaskId, taskName, taskDueDate, taskStatus);
+                        Task newTask = new Task(newTaskId, taskName, taskDueDate, project.ProjectName, taskStatus);
                         project.AddTask(newTask);
                         Console.WriteLine($"Task '{newTask.TaskName}' (ID: {newTask.TaskID}) added to '{project.ProjectName}'.");
                         break;
