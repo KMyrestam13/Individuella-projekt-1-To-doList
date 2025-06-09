@@ -16,6 +16,7 @@ namespace Individuella_projekt_1_To_doList
         public string ProjectStatus { get; set; }
         public double CompletionPercentage { get; set; }
 
+        // empty constructor for JSON deserialisation
         public Project() { }
         public Project(string projectID, string projectName, DateTime projectDueDate)
         {

@@ -15,6 +15,7 @@ namespace Individuella_projekt_1_To_doList
         public string TaskProject { get; set; }
         public string TaskStatus { get; set; } // this will hold one of three values "Pending" "In Progress" or "Done"
 
+        // empty constructor for JSON deserialisation
         public Task() { }
 
         // Constructor and its paramaters
