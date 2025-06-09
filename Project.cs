@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq; 
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,21 +16,14 @@ namespace Individuella_projekt_1_To_doList
         public string ProjectStatus { get; set; }
         public double CompletionPercentage { get; set; }
 
-        public Project(string projectID, string projectName, DateTime projectDueDate, List<Task> projectTasks, string initialStatus = "Pending")
-        {
-            ProjectID = projectID;
-            ProjectName = projectName;
-            ProjectDueDate = projectDueDate;
-            ProjectTasks = projectTasks;
-            ProjectStatus = initialStatus;
-        }
+        public Project() { }
         public Project(string projectID, string projectName, DateTime projectDueDate)
         {
             ProjectID = projectID;
             ProjectName = projectName;
             ProjectDueDate = projectDueDate;
             ProjectTasks = new List<Task>(); // Initialize an empty list of tasks
-            ProjectStatus = "Pending";      // Set initial status to Pending
+            ProjectStatus = "PENDING";      // Set initial status to Pending
             UpdateProjectStatusBasedOnTasks(); // Ensure completion percentage is calculated (0% when there are no tasks.)
         }
 
@@ -77,7 +70,7 @@ namespace Individuella_projekt_1_To_doList
             if (ProjectTasks == null || ProjectTasks.Count == 0)
             {
                 CompletionPercentage = 0;
-                ProjectStatus = "Pending";
+                ProjectStatus = "PENDING";
                 return;
             }
 
@@ -86,7 +79,7 @@ namespace Individuella_projekt_1_To_doList
 
             foreach (var task in ProjectTasks) // adds to the number of completed tasks if the task status is changed to Done
             {
-                if (task.TaskStatus == "Done")
+                if (task.TaskStatus == "DONE")
                 {
                     completedTasks++;
                 }
@@ -95,17 +88,17 @@ namespace Individuella_projekt_1_To_doList
 
             if (CompletionPercentage == 100)
             {
-                ProjectStatus = "Done";
+                ProjectStatus = "DONE";
             }
 
             else if (CompletionPercentage >= 1)
             {
-                ProjectStatus = "In Progress";
+                ProjectStatus = "IN PROGRESS";
             }
 
             else
             {
-                ProjectStatus = "Pending";
+                ProjectStatus = "PENDING";
             }
 
         }

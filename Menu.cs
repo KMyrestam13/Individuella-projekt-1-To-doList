@@ -117,7 +117,7 @@ namespace Individuella_projekt_1_To_doList
             string taskId = HelperMethods.GenerateRandomId(5);
             string taskName = HelperMethods.GetStringInput("Enter task name: ");
             DateTime taskDueDate = HelperMethods.GetDateInput("Enter task due date (YYYY-MM-DD): ");
-            string taskStatus = HelperMethods.GetStringInput("Enter task status (e.g., To Do, In Progress, Done): ");
+            string taskStatus = HelperMethods.GetStringInput("Enter task status (e.g., To Do, In Progress, Done): ").ToUpper();
 
             Task newTask = new Task(taskId, taskName, taskDueDate, selectedProject.ProjectName, taskStatus);
 

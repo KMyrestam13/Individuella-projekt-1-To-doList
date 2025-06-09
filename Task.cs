@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Individuella_projekt_1_To_doList
 {
-    public class Task 
+    public class Task
     {
         // properties
         public string TaskID { get; set; }
@@ -14,17 +14,17 @@ namespace Individuella_projekt_1_To_doList
         public DateTime TaskDueDate { get; set; }
         public string TaskProject { get; set; }
         public string TaskStatus { get; set; } // this will hold one of three values "Pending" "In Progress" or "Done"
-        
+
+        public Task() { }
 
         // Constructor and its paramaters
-        public Task( string taskid, string taskName, DateTime taskDueDate, string taskProject, string initialTaskStatus = "Pending")
+        public Task(string taskid, string taskName, DateTime taskDueDate, string taskProject, string initialTaskStatus = "Pending")
         {
             TaskID = taskid;
             TaskName = taskName;
             TaskDueDate = taskDueDate;
             TaskProject = taskProject;
             TaskStatus = initialTaskStatus;
-            
         }
 
         // method for what the task info displays
