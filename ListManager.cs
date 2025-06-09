@@ -275,6 +275,7 @@ namespace Individuella_projekt_1_To_doList
                             newStatus.Equals("Done", StringComparison.OrdinalIgnoreCase))
                         {
                             taskToUpdate.TaskStatus = newStatus;
+
                             Console.WriteLine("Task status updated.");
                         }
                         else

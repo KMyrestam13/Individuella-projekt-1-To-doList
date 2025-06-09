@@ -103,14 +103,33 @@ namespace Individuella_projekt_1_To_doList
             }
 
         }
-        // method displays a progress bar for how much of the project is completed.
+        // method displays a progress bar for how much of the project is completed. After looking at several links there 
+        //are multiple ways to do this, but I chose this one for simplicity.
         public void DisplayProgressBar()
         {
             const int barLength = 20; // Length of the bar
             int filledLength = (int)Math.Round(CompletionPercentage / 100 * barLength);
             string progressBar = "[" + new string('\u25A0', filledLength) + new string('-', barLength - filledLength) + "]";
+            if (CompletionPercentage == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Progress: {progressBar}");
+                Console.ResetColor();
+            }
 
-            Console.WriteLine($"Progress: {progressBar}");
+            else if (CompletionPercentage < 1) 
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Progress: {progressBar}");
+                Console.ResetColor();
+            }
+
+            else if (CompletionPercentage == 100) 
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Progress: {progressBar}");
+                Console.ResetColor();
+            }
         }
     }
 

@@ -22,13 +22,16 @@ namespace Individuella_projekt_1_To_doList
                 string jsonString = JsonSerializer.Serialize(projects, options);
 
                 File.WriteAllText(DataFileName, jsonString);
-
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\u2713 Projects saved to '{DataFileName}'. ");
+                Console.ResetColor();
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error saving projects: {ex.Message}");
                 Console.WriteLine("Please check if you can access the file, or if your harddrive space is full.");
+                Console.ResetColor();
             }
         }
 
@@ -36,7 +39,9 @@ namespace Individuella_projekt_1_To_doList
         {
             if (!File.Exists(DataFileName))
             {
-                Console.WriteLine($"No data found in '{DataFileName}'. Starting with an empty list of projects."); 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"No data found in '{DataFileName}'. Starting with an empty list of projects.");
+                Console.ResetColor();
                 return new List<Project>();
             }
 
@@ -49,20 +54,26 @@ namespace Individuella_projekt_1_To_doList
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"\nError reading project data (JSON format issue): {ex.Message}"); 
-                Console.WriteLine("Starting with an empty list of projects to prevent further issues."); 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error reading project data (JSON format issue): {ex.Message}"); 
+                Console.WriteLine("Starting with an empty list of projects to prevent further issues.");
+                Console.ResetColor();
                 return new List<Project>();
             }
             catch (IOException ex)
             {
-                Console.WriteLine($"\nError accessing file '{DataFileName}': {ex.Message}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error accessing file '{DataFileName}': {ex.Message}");
                 Console.WriteLine("Starting with an empty list of projects. Please check file permissions."); 
+                Console.ResetColor();
                 return new List<Project>();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"\nAn unexpected error occurred while loading projects: {ex.Message}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"An unexpected error occurred while loading projects: {ex.Message}");
                 Console.WriteLine("Starting with an empty list of projects."); 
+                Console.ResetColor();
                 return new List<Project>(); 
             }
         }
