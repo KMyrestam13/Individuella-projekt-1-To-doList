@@ -38,7 +38,9 @@ namespace Individuella_projekt_1_To_doList
                 input = Console.ReadLine()?.Trim();
                 if (string.IsNullOrWhiteSpace(input))
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Input cannot be empty. Please try again.");
+                    Console.ResetColor();
                 }
             } while (string.IsNullOrWhiteSpace(input));
             return input;
@@ -56,7 +58,9 @@ namespace Individuella_projekt_1_To_doList
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid input. Please enter a whole number.");
+                    Console.ResetColor();
                 }
             }
         }
@@ -84,7 +88,9 @@ namespace Individuella_projekt_1_To_doList
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid input. Please enter a valid number.");
+                    Console.ResetColor();
                 }
             }
         }
@@ -101,7 +107,9 @@ namespace Individuella_projekt_1_To_doList
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid date format. Please use YYYY-MM-DD.");
+                    Console.ResetColor();
                 }
             }
         }
@@ -117,6 +125,24 @@ namespace Individuella_projekt_1_To_doList
             int totalWidth = idWidth + nameWidth + dueDateWidth + statusWidth + (delimiterWidth * 3); // Calculate total width including bars
 
             Console.WriteLine(new string('-', totalWidth));
+            //stores original console colors.
+            ConsoleColor originalForColor = Console.ForegroundColor;
+            ConsoleColor originalBackColor = Console.BackgroundColor;
+
+            // Defines the alternating colors for the rows in a table.
+            ConsoleColor row1BgColor = ConsoleColor.Black;
+            ConsoleColor row1FgColor = ConsoleColor.White;
+
+            ConsoleColor row2BgColor = ConsoleColor.Gray;
+            ConsoleColor row2FgColor = ConsoleColor.White;
+
+            // Define colors for overdue items
+            ConsoleColor overdueBgColor = ConsoleColor.DarkRed; // A dark red background
+            ConsoleColor overdueFgColor = ConsoleColor.White;
+
+            //row counter. 
+            int rowIndex = 0;
+
             Console.WriteLine(
                 "ID".PadRight(idWidth) + " | " +
                 "Task Name".PadRight(nameWidth) + " | " +
@@ -127,22 +153,44 @@ namespace Individuella_projekt_1_To_doList
 
             if (tasks == null || tasks.Count == 0) // checks if tasks list is empty
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No tasks to display.".PadRight(totalWidth));
+                Console.ResetColor();
             }
             else
             {
                 foreach (var task in tasks) // Print each task row
                 {
+                    if (HelperMethods.IsTaskOverDue(task))
+                    {
+
+                        Console.BackgroundColor = overdueBgColor;
+                        Console.ForegroundColor = overdueFgColor;
+
+                    }
+                    else if (rowIndex % 2 == 0) // says what colors even number rows should be 
+                    {
+                        Console.BackgroundColor = row1BgColor;
+                        Console.ForegroundColor = row1FgColor;
+                    }
+                    else  // says what colors odd rows should be
+                    {
+                        Console.BackgroundColor = row2BgColor;
+                        Console.ForegroundColor = row2FgColor;
+                    }
                     Console.WriteLine(
                         task.TaskID.PadRight(idWidth) + " | " +
                         task.TaskName.PadRight(nameWidth) + " | " +
                         task.TaskDueDate.ToShortDateString().PadRight(dueDateWidth) + " | " +
                         task.TaskStatus.PadRight(statusWidth)
                     );
+                    rowIndex++;// moves the index so that the row count increases
                 }
+                Console.BackgroundColor = originalBackColor; // resets colors after each row
+                Console.ForegroundColor = originalForColor;
+                Console.WriteLine(new string('-', totalWidth));
+                Console.WriteLine(); // Add an extra line for spacing
             }
-            Console.WriteLine(new string('-', totalWidth));
-            Console.WriteLine(); // Add an extra line for spacing
         }
 
         public static void DisplayProjectsInTable(List<Project> projects) // New method to display projects in a table
@@ -156,7 +204,6 @@ namespace Individuella_projekt_1_To_doList
 
             int totalWidth = idWidth + nameWidth + dueDateWidth + notDoneWidth + percentDoneWidth + (delimiterWidth * 4); // Calculate total width including delimiters
 
-            Console.WriteLine(new string('-', totalWidth));
             Console.WriteLine(
                 "ID".PadRight(idWidth) + " | " +
                 "Project Name".PadRight(nameWidth) + " | " +
@@ -166,14 +213,54 @@ namespace Individuella_projekt_1_To_doList
             );
             Console.WriteLine(new string('-', totalWidth));
 
+
+            //stores original console colors.
+            ConsoleColor originalForColor = Console.ForegroundColor;
+            ConsoleColor originalBackColor = Console.BackgroundColor;
+
+            // Defines the alternating colors for the rows in a table.
+            ConsoleColor row1BgColor = ConsoleColor.Black;
+            ConsoleColor row1FgColor = ConsoleColor.White;
+
+            ConsoleColor row2BgColor = ConsoleColor.Gray;
+            ConsoleColor row2FgColor = ConsoleColor.White;
+
+            // Define colors for overdue items
+            ConsoleColor overdueBgColor = ConsoleColor.DarkRed; // A dark red background
+            ConsoleColor overdueFgColor = ConsoleColor.White;   // White text on dark red for contrast
+
+            //row counter. 
+            int rowIndex = 0;
+
+
             if (projects == null || projects.Count == 0) // also checks if projects list is empty
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No projects to display.".PadRight(totalWidth));
+                Console.ResetColor();
             }
             else
             {
                 foreach (var project in projects) // Print each project row
                 {
+                    if (HelperMethods.IsProjectOverDue(project))
+                    {
+
+                        Console.BackgroundColor = overdueBgColor;
+                        Console.ForegroundColor = overdueFgColor;
+
+                    }
+                    else if (rowIndex % 2 == 0)
+                    {
+                        Console.BackgroundColor = row1BgColor;
+                        Console.ForegroundColor = row1FgColor;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = row2BgColor;
+                        Console.ForegroundColor = row2FgColor;
+                    }
+
                     int totalTasks;
                     if (project.ProjectTasks != null)
                     {
@@ -213,8 +300,11 @@ namespace Individuella_projekt_1_To_doList
                         notDoneTasks.ToString().PadRight(notDoneWidth) + " | " +
                         (percentCompleted.ToString("F0") + "%").PadRight(percentDoneWidth)
                     );
+                    rowIndex++;
                 }
             }
+            Console.BackgroundColor = originalBackColor;
+            Console.ForegroundColor = originalForColor;
             Console.WriteLine(new string('-', totalWidth));
             Console.WriteLine(); // Add an extra line for spacing
         }
@@ -243,6 +333,25 @@ namespace Individuella_projekt_1_To_doList
             Console.WriteLine(new string('-', totalWidth));
 
             bool anyTasks = false;
+
+            //stores original console colors.
+            ConsoleColor originalForColor = Console.ForegroundColor;
+            ConsoleColor originalBackColor = Console.BackgroundColor;
+
+            // Defines the alternating colors for the rows in a table.
+            ConsoleColor row1BgColor = ConsoleColor.Black;
+            ConsoleColor row1FgColor = ConsoleColor.White;
+
+            ConsoleColor row2BgColor = ConsoleColor.Gray;
+            ConsoleColor row2FgColor = ConsoleColor.White;
+
+            // Define colors for overdue items
+            ConsoleColor overdueBgColor = ConsoleColor.DarkRed; // A dark red background
+            ConsoleColor overdueFgColor = ConsoleColor.White;   // White text on dark red for contrast
+
+            //row counter. 
+            int rowIndex = 0;
+
             if (projects != null)
             {
                 foreach (var project in projects)
@@ -252,6 +361,23 @@ namespace Individuella_projekt_1_To_doList
                         anyTasks = true;
                         foreach (var task in project.ProjectTasks) // Print each task row within project
                         {
+                            if (HelperMethods.IsTaskOverDue(task))
+                            {
+
+                                Console.BackgroundColor = overdueBgColor;
+                                Console.ForegroundColor = overdueFgColor;
+
+                            }
+                            else if (rowIndex % 2 == 0)
+                            {
+                                Console.BackgroundColor = row1BgColor;
+                                Console.ForegroundColor = row1FgColor;
+                            }
+                            else
+                            {
+                                Console.BackgroundColor = row2BgColor;
+                                Console.ForegroundColor = row2FgColor;
+                            }
                             Console.WriteLine(
                                 project.ProjectID.PadRight(projectIdWidth) + " | " +
                                 project.ProjectName.PadRight(projectNameWidth) + " | " +
@@ -260,17 +386,33 @@ namespace Individuella_projekt_1_To_doList
                                 task.TaskDueDate.ToShortDateString().PadRight(taskDueDateWidth) + " | " +
                                 task.TaskStatus.PadRight(taskStatusWidth)
                             );
+
+                            rowIndex++; // adds to the row counter for the next row
                         }
                     }
                 }
             }
-
-            if (anyTasks == false) // If no tasks across all projects
+            Console.BackgroundColor = originalBackColor;
+            Console.ForegroundColor = originalForColor;
+            if (!anyTasks) // If no tasks across all projects
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No tasks from any project to display.".PadRight(totalWidth));
+                Console.ResetColor();
             }
             Console.WriteLine(new string('-', totalWidth));
             Console.WriteLine(); // Add an extra line for spacing
         }
+
+        public static bool IsTaskOverDue(Task task)
+        {
+            return task.TaskDueDate.Date < DateTime.Now.Date && task.TaskStatus.ToUpper() != "DONE";
+        }
+
+        public static bool IsProjectOverDue(Project project)
+        {
+            return project.ProjectDueDate.Date < DateTime.Now.Date && project.ProjectStatus.ToUpper() != "DONE";
+        }
     }
+
 }
