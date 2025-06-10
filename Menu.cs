@@ -138,7 +138,16 @@ namespace Individuella_projekt_1_To_doList
             Console.WriteLine("--- Load Data ---");
             List<Project> loadedProjects = fileHandler.LoadProjects();
             listManager.Projects = loadedProjects;
+
+            if (listManager.Projects != null) // this ensures that the completion percentage is based on the most recent data.
+            {
+                foreach (var project in listManager.Projects)
+                {
+                    project.UpdateProjectStatusBasedOnTasks();
+                }
+            }
             Console.WriteLine("Projects loaded successfully.");
         }
+
     }
 }

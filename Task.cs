@@ -37,19 +37,19 @@ namespace Individuella_projekt_1_To_doList
         //Method for marking a task as "Pending"
         public void MarkAsPending()
         {
-            TaskStatus = "Pending";
+            TaskStatus = "PENDING";
         }
 
         // Method for marking status as "in progress"
         public void MarkAsInProgress()
         {
-            TaskStatus = "In Progress";
+            TaskStatus = "IN PROGRESS";
         }
 
         // method for changing status when task is marked complete.
         public void MarkAsDone()
         {
-            TaskStatus = "Done";
+            TaskStatus = "DONE";
         }
     }
 }

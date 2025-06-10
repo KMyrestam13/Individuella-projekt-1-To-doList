@@ -117,7 +117,7 @@ namespace Individuella_projekt_1_To_doList
                 Console.ResetColor();
             }
 
-            else if (CompletionPercentage < 1) 
+            else if (CompletionPercentage > 1 && CompletionPercentage < 100)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Progress: {progressBar}");

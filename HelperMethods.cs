@@ -134,7 +134,7 @@ namespace Individuella_projekt_1_To_doList
             ConsoleColor row1FgColor = ConsoleColor.White;
 
             ConsoleColor row2BgColor = ConsoleColor.Gray;
-            ConsoleColor row2FgColor = ConsoleColor.White;
+            ConsoleColor row2FgColor = ConsoleColor.DarkBlue;
 
             // Define colors for overdue items
             ConsoleColor overdueBgColor = ConsoleColor.DarkRed; // A dark red background
@@ -223,7 +223,7 @@ namespace Individuella_projekt_1_To_doList
             ConsoleColor row1FgColor = ConsoleColor.White;
 
             ConsoleColor row2BgColor = ConsoleColor.Gray;
-            ConsoleColor row2FgColor = ConsoleColor.White;
+            ConsoleColor row2FgColor = ConsoleColor.DarkBlue;
 
             // Define colors for overdue items
             ConsoleColor overdueBgColor = ConsoleColor.DarkRed; // A dark red background
@@ -243,6 +243,8 @@ namespace Individuella_projekt_1_To_doList
             {
                 foreach (var project in projects) // Print each project row
                 {
+                    project.UpdateProjectStatusBasedOnTasks();
+
                     if (HelperMethods.IsProjectOverDue(project))
                     {
 
@@ -274,7 +276,8 @@ namespace Individuella_projekt_1_To_doList
                     int completedTasks;
                     if (project.ProjectTasks != null)
                     {
-                        completedTasks = project.ProjectTasks.Count(t => t.TaskStatus == "Done");
+                        project.UpdateProjectStatusBasedOnTasks();
+                        completedTasks = project.ProjectTasks.Count(t => t.TaskStatus == "DONE");
                     }
                     else
                     {
@@ -343,7 +346,7 @@ namespace Individuella_projekt_1_To_doList
             ConsoleColor row1FgColor = ConsoleColor.White;
 
             ConsoleColor row2BgColor = ConsoleColor.Gray;
-            ConsoleColor row2FgColor = ConsoleColor.White;
+            ConsoleColor row2FgColor = ConsoleColor.DarkBlue;
 
             // Define colors for overdue items
             ConsoleColor overdueBgColor = ConsoleColor.DarkRed; // A dark red background
@@ -356,6 +359,8 @@ namespace Individuella_projekt_1_To_doList
             {
                 foreach (var project in projects)
                 {
+                    project.UpdateProjectStatusBasedOnTasks();
+
                     if (project.ProjectTasks != null && project.ProjectTasks.Count > 0) // also checks if tasks list is empty
                     {
                         anyTasks = true;
@@ -412,6 +417,18 @@ namespace Individuella_projekt_1_To_doList
         public static bool IsProjectOverDue(Project project)
         {
             return project.ProjectDueDate.Date < DateTime.Now.Date && project.ProjectStatus.ToUpper() != "DONE";
+        }
+        public static void UpdateProjectStatusBasedOnTask(Project project)
+        {
+            if (project.ProjectTasks != null && project.ProjectTasks.Count > 0)
+            {
+                bool allTasksDone = project.ProjectTasks.All(t => t.TaskStatus.ToUpper() == "DONE");
+                project.ProjectStatus = allTasksDone ? "Done" : "IN PROGRESS";
+            }
+            else
+            {
+                project.ProjectStatus = "No Tasks";
+            }
         }
     }
 
