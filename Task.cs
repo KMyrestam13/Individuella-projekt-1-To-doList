@@ -13,13 +13,13 @@ namespace Individuella_projekt_1_To_doList
         public string TaskName { get; set; }
         public DateTime TaskDueDate { get; set; }
         public string TaskProject { get; set; }
-        public string TaskStatus { get; set; } // this will hold one of three values "Pending" "In Progress" or "Done"
+        public string TaskStatus { get; set; } // this will hold one of three values "TO DO" "IN PROGRESS" or "DONE"
 
         // empty constructor for JSON deserialisation
         public Task() { }
 
         // Constructor and its paramaters
-        public Task(string taskid, string taskName, DateTime taskDueDate, string taskProject, string initialTaskStatus = "Pending")
+        public Task(string taskid, string taskName, DateTime taskDueDate, string taskProject, string initialTaskStatus = "TO DO")
         {
             TaskID = taskid;
             TaskName = taskName;
@@ -34,10 +34,10 @@ namespace Individuella_projekt_1_To_doList
             Console.WriteLine($" ID {TaskID}, Task Name: {TaskName}, Due Date: {TaskDueDate.ToShortDateString()}, Project: {TaskProject},  Status: {TaskStatus}");
         }
 
-        //Method for marking a task as "Pending"
+        //Method for marking a task as "TO DO"
         public void MarkAsPending()
         {
-            TaskStatus = "PENDING";
+            TaskStatus = "TO DO";
         }
 
         // Method for marking status as "in progress"

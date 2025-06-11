@@ -73,26 +73,7 @@ namespace Individuella_projekt_1_To_doList
             {
                 return input;
             }
-            return 0;
-        }
-
-        public static double GetDoubleInput(string prompt) // Method to get double input from the user
-        {
-            double input;
-            while (true)
-            {
-                Console.Write(prompt);
-                if (double.TryParse(Console.ReadLine(), out input))
-                {
-                    return input;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid input. Please enter a valid number.");
-                    Console.ResetColor();
-                }
-            }
+            return -1;
         }
 
         public static DateTime GetDateInput(string prompt) // Method to get date input from the user
@@ -198,7 +179,7 @@ namespace Individuella_projekt_1_To_doList
             int idWidth = 8; // Define column headers and widths
             int nameWidth = 25;
             int dueDateWidth = 12;
-            int notDoneWidth = 15;
+            int notDoneWidth = 16;
             int percentDoneWidth = 10;
             int delimiterWidth = 3; // spacer bars for header
 
@@ -423,7 +404,7 @@ namespace Individuella_projekt_1_To_doList
             if (project.ProjectTasks != null && project.ProjectTasks.Count > 0)
             {
                 bool allTasksDone = project.ProjectTasks.All(t => t.TaskStatus.ToUpper() == "DONE");
-                project.ProjectStatus = allTasksDone ? "Done" : "IN PROGRESS";
+                project.ProjectStatus = allTasksDone ? "DONE" : "IN PROGRESS";
             }
             else
             {

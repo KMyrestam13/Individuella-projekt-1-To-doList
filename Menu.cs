@@ -24,6 +24,7 @@ namespace Individuella_projekt_1_To_doList
             Console.WriteLine("9. Exit");
             Console.WriteLine("-------------------------------------");
         }
+
         // this is what happens when you run the main menu
         public static void RunMainMenu(ListManager listManager, FileHandling fileHandler)
         {
@@ -77,18 +78,20 @@ namespace Individuella_projekt_1_To_doList
                 }
             }
         }
+
         // this allows the user to add a new project
         private static void AddNewProject(ListManager listManager)
         {
             HelperMethods.ClearConsole();
             Console.WriteLine("--- Add New Project ---");
-            string projectId = HelperMethods.GenerateRandomId(5);
+            string projectId = listManager.GetUniqueTaskId();
             string projectName = HelperMethods.GetStringInput("Enter project name: ");
             DateTime projectDueDate = HelperMethods.GetDateInput("Enter project due date (YYYY-MM-DD): ");
 
             Project newProject = new Project(projectId, projectName, projectDueDate);
             listManager.AddProject(newProject);
         }
+
         // this allows the user to add a task to a project
         private static void AddTaskToProject(ListManager listManager)
         {

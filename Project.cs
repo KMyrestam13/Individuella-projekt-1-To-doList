@@ -24,7 +24,7 @@ namespace Individuella_projekt_1_To_doList
             ProjectName = projectName;
             ProjectDueDate = projectDueDate;
             ProjectTasks = new List<Task>(); // Initialize an empty list of tasks
-            ProjectStatus = "PENDING";      // Set initial status to Pending
+            ProjectStatus = "TO DO";      // Set initial status to TO DO
             UpdateProjectStatusBasedOnTasks(); // Ensure completion percentage is calculated (0% when there are no tasks.)
         }
 
@@ -71,7 +71,7 @@ namespace Individuella_projekt_1_To_doList
             if (ProjectTasks == null || ProjectTasks.Count == 0)
             {
                 CompletionPercentage = 0;
-                ProjectStatus = "PENDING";
+                ProjectStatus = "TO DO";
                 return;
             }
 
@@ -99,7 +99,7 @@ namespace Individuella_projekt_1_To_doList
 
             else
             {
-                ProjectStatus = "PENDING";
+                ProjectStatus = "TO DO";
             }
 
         }

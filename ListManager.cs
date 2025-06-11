@@ -238,7 +238,7 @@ namespace Individuella_projekt_1_To_doList
 
             project.ListAllProjectTasks();
             string taskIdToUpdate = HelperMethods.GetStringInput("Enter the ID of the task to update: ");
-            Task taskToUpdate = project.ProjectTasks.FirstOrDefault(t => t.TaskID.ToLowerInvariant() == taskIdToUpdate.ToLowerInvariant());
+            Task taskToUpdate = project.ProjectTasks.FirstOrDefault(t => t.TaskID == taskIdToUpdate);
 
             if (taskToUpdate == null)
             {
@@ -269,18 +269,18 @@ namespace Individuella_projekt_1_To_doList
                         Console.WriteLine("Task due date updated.");
                         break;
                     case 3:
-                        string newStatus = HelperMethods.GetStringInput($"Enter new status for task '{taskToUpdate.TaskName}' (e.g., To Do, In Progress, Done): ");
+                        string newStatus = HelperMethods.GetStringInput($"Enter new status for task '{taskToUpdate.TaskName}' (e.g., TO DO, IN PROGRESS, DONE): ");
                         if (newStatus.Equals("To Do", StringComparison.OrdinalIgnoreCase) ||
                             newStatus.Equals("In Progress", StringComparison.OrdinalIgnoreCase) ||
                             newStatus.Equals("Done", StringComparison.OrdinalIgnoreCase))
                         {
-                            taskToUpdate.TaskStatus = newStatus;
+                            taskToUpdate.TaskStatus = newStatus.ToUpper();
 
                             Console.WriteLine("Task status updated.");
                         }
                         else
                         {
-                            Console.WriteLine("Invalid status. Please enter 'To Do', 'In Progress', or 'Done'.");
+                            Console.WriteLine("Invalid status. Please enter 'TO DO', 'IN PROGRESS', or 'DONE'.");
                         }
                         break;
                     case 4:
