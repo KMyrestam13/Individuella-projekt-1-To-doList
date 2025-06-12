@@ -117,16 +117,33 @@ namespace Individuella_projekt_1_To_doList
 
             Console.WriteLine($"--- Adding Task to Project: '{selectedProject.ProjectName}' (ID: {selectedProject.ProjectID}) ---");
 
-            string taskId = HelperMethods.GenerateRandomId(5);
+            string taskId = listManager.GetUniqueTaskId();
             string taskName = HelperMethods.GetStringInput("Enter task name: ");
-            DateTime taskDueDate = HelperMethods.GetDateInput("Enter task due date (YYYY-MM-DD): ");
-            string taskStatus = HelperMethods.GetStringInput("Enter task status (e.g., To Do, In Progress, Done): ").ToUpper();
+            DateTime taskDueDate
+            while (true)
+            {
+                taskDueDate = HelperMethods.GetDateInput("Enter task due date (YYYY-MM-DD): ");
+                if (taskDueDate < DateTime.Now.Date)
+                {
+                    Console.WriteLine("Task due date cannot be in the past. Please enter a future date.");
+                }
 
-            Task newTask = new Task(taskId, taskName, taskDueDate, selectedProject.ProjectName, taskStatus);
+                else if (taskDueDate > selectedProject.ProjectDueDate)
+                {
+                    Console.WriteLine("Task due date cannot be later than the project due date. Please enter a date before the project's due date.");
+                }
+                else
+                {
+                    break;
+                }
 
-            selectedProject.AddTask(newTask);
-            Console.WriteLine("Task added successfully!");
-        }
+                string taskStatus = HelperMethods.GetStringInput("Enter task status (e.g., To Do, In Progress, Done): ").ToUpper();
+
+                Task newTask = new Task(taskId, taskName, taskDueDate, selectedProject.ProjectName, taskStatus);
+
+                selectedProject.AddTask(newTask);
+                Console.WriteLine("Task added successfully!");
+            }
 
         private static void SaveData(ListManager listManager, FileHandling fileHandler)
         {

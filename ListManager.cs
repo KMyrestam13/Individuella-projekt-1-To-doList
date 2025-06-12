@@ -77,8 +77,8 @@ namespace Individuella_projekt_1_To_doList
             Console.WriteLine("2. Due Date (Ascending)");
             int sortChoice = HelperMethods.GetIntInputNoRetry("Enter your sorting choice: ");
 
-            
-            List<Project> projectsToDisplay = new List<Project>(Projects); 
+
+            List<Project> projectsToDisplay = new List<Project>(Projects);
             switch (sortChoice)
             {
                 case 1:
@@ -95,7 +95,7 @@ namespace Individuella_projekt_1_To_doList
                     // Default sort: Project Name then Due Date using direct comparison
                     Console.WriteLine("Invalid choice. Displaying projects sorted by Name then Due Date by default.");
                     projectsToDisplay = projectsToDisplay.OrderBy(p => p.ProjectName).ThenBy(a => a.ProjectDueDate).ToList();
-                    
+
                     break;
             }
 
@@ -230,7 +230,7 @@ namespace Individuella_projekt_1_To_doList
         // updates tasks in a specific project. First it lists all the tasks in that project then it allows the user to choose one.
         private void UpdateSpecificTaskInProject(Project project)
         {
-            if (project.ProjectTasks == null || project.ProjectTasks.Count == 0) 
+            if (project.ProjectTasks == null || project.ProjectTasks.Count == 0)
             {
                 Console.WriteLine("No tasks in this project to update.");
                 return;
@@ -264,15 +264,31 @@ namespace Individuella_projekt_1_To_doList
                         Console.WriteLine("Task name updated.");
                         break;
                     case 2:
-                        DateTime newDueDate = HelperMethods.GetDateInput($"Enter new due date for task '{taskToUpdate.TaskName}' (YYYY-MM-DD): ");
+                        DateTime newDueDate;
+                        while (true)
+                        {
+                            newDueDate = HelperMethods.GetDateInput($"Enter new due date for task '{taskToUpdate.TaskName}' (YYYY-MM-DD): ");
+                            if (newDueDate < DateTime.Now.Date)
+                            {
+                                Console.WriteLine("Task due date cannot be in the past. Please enter a future date.");
+                            }
+                            else if (newDueDate > project.ProjectDueDate)
+                            {
+                                Console.WriteLine("Task due date cannot be later than the project due date. Please enter a date before the project's due date.");
+                            }
+                            else
+                            {
+                                break; 
+                            }
+                        }
                         taskToUpdate.TaskDueDate = newDueDate;
                         Console.WriteLine("Task due date updated.");
-                        break;
+
                     case 3:
                         string newStatus = HelperMethods.GetStringInput($"Enter new status for task '{taskToUpdate.TaskName}' (e.g., TO DO, IN PROGRESS, DONE): ");
-                        if (newStatus.Equals("To Do", StringComparison.OrdinalIgnoreCase) ||
-                            newStatus.Equals("In Progress", StringComparison.OrdinalIgnoreCase) ||
-                            newStatus.Equals("Done", StringComparison.OrdinalIgnoreCase))
+                        if (newStatus.Equals("TO DO", StringComparison.OrdinalIgnoreCase) ||
+                            newStatus.Equals("IN PROGRESS", StringComparison.OrdinalIgnoreCase) ||
+                            newStatus.Equals("DONE", StringComparison.OrdinalIgnoreCase))
                         {
                             taskToUpdate.TaskStatus = newStatus.ToUpper();
 
@@ -378,7 +394,7 @@ namespace Individuella_projekt_1_To_doList
             Task taskToDelete = null;
             if (currentProject.ProjectTasks != null && currentProject.ProjectTasks.Count > 0) // Replaced .Any() with .Count > 0
             {
-                
+
                 taskToDelete = currentProject.ProjectTasks.FirstOrDefault(task => task.TaskID.ToLowerInvariant() == taskIDToDelete.ToLowerInvariant());
             }
 
@@ -408,7 +424,7 @@ namespace Individuella_projekt_1_To_doList
 
         public Project GetProjectById(string projectId)
         {
-            
+
             return Projects.FirstOrDefault(p => p.ProjectID.ToLowerInvariant() == projectId.ToLowerInvariant());
         }
     }
