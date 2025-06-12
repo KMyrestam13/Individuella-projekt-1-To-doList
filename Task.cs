@@ -27,29 +27,5 @@ namespace Individuella_projekt_1_To_doList
             TaskProject = taskProject;
             TaskStatus = initialTaskStatus;
         }
-
-        // method for what the task info displays
-        public void DisplayTaskInfo()
-        {
-            Console.WriteLine($" ID {TaskID}, Task Name: {TaskName}, Due Date: {TaskDueDate.ToShortDateString()}, Project: {TaskProject},  Status: {TaskStatus}");
-        }
-
-        //Method for marking a task as "TO DO"
-        public void MarkAsPending()
-        {
-            TaskStatus = "TO DO";
-        }
-
-        // Method for marking status as "in progress"
-        public void MarkAsInProgress()
-        {
-            TaskStatus = "IN PROGRESS";
-        }
-
-        // method for changing status when task is marked complete.
-        public void MarkAsDone()
-        {
-            TaskStatus = "DONE";
-        }
     }
 }

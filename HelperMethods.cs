@@ -399,18 +399,8 @@ namespace Individuella_projekt_1_To_doList
         {
             return project.ProjectDueDate.Date < DateTime.Now.Date && project.ProjectStatus.ToUpper() != "DONE";
         }
-        public static void UpdateProjectStatusBasedOnTask(Project project)
-        {
-            if (project.ProjectTasks != null && project.ProjectTasks.Count > 0)
-            {
-                bool allTasksDone = project.ProjectTasks.All(t => t.TaskStatus.ToUpper() == "DONE");
-                project.ProjectStatus = allTasksDone ? "DONE" : "IN PROGRESS";
-            }
-            else
-            {
-                project.ProjectStatus = "No Tasks";
-            }
-        }
-    }
 
+    }
 }
+    
+
