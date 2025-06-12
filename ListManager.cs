@@ -283,6 +283,7 @@ namespace Individuella_projekt_1_To_doList
                         }
                         taskToUpdate.TaskDueDate = newDueDate;
                         Console.WriteLine("Task due date updated.");
+                        break;
 
                     case 3:
                         string newStatus = HelperMethods.GetStringInput($"Enter new status for task '{taskToUpdate.TaskName}' (e.g., TO DO, IN PROGRESS, DONE): ");
