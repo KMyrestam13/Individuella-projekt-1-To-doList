@@ -134,15 +134,15 @@ namespace Individuella_projekt_1_To_doList
                 }
                 else
                 {
-                    break;
-                }
-
                 string taskStatus = HelperMethods.GetStringInput("Enter task status (e.g., To Do, In Progress, Done): ").ToUpper();
-
                 Task newTask = new Task(taskId, taskName, taskDueDate, selectedProject.ProjectName, taskStatus);
-
                 selectedProject.AddTask(newTask);
                 Console.WriteLine("Task added successfully!");
+                 break;
+                }
+
+
+
             }
         }
 
