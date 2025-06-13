@@ -119,7 +119,7 @@ namespace Individuella_projekt_1_To_doList
 
             string taskId = listManager.GetUniqueTaskId();
             string taskName = HelperMethods.GetStringInput("Enter task name: ");
-            DateTime taskDueDate
+            DateTime taskDueDate;
             while (true)
             {
                 taskDueDate = HelperMethods.GetDateInput("Enter task due date (YYYY-MM-DD): ");
@@ -144,6 +144,7 @@ namespace Individuella_projekt_1_To_doList
                 selectedProject.AddTask(newTask);
                 Console.WriteLine("Task added successfully!");
             }
+        }
 
         private static void SaveData(ListManager listManager, FileHandling fileHandler)
         {
